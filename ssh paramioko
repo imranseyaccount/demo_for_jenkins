@@ -1,0 +1,25 @@
+import paramiko
+
+ip = "YOUR_SERVER_IP"
+port = 22                     # default SSH port
+username = "YOUR_USERNAME"
+password = "YOUR_PASSWORD"
+
+# Create SSH client
+client = paramiko.SSHClient()
+client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+
+# Connect
+client.connect(
+    hostname=ip,
+    port=port,
+    username=username,
+    password=password
+)
+
+# Test command
+stdin, stdout, stderr = client.exec_command("whoami")
+print("Output:", stdout.read().decode())
+
+# Close
+client.close()
